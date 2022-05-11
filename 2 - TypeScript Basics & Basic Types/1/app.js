@@ -1,0 +1,10 @@
+function longestWord(line) {
+    var strSplit = line.split(' ');
+    var longest = strSplit[0];
+    for (var i = 0; i < strSplit.length; i++) {
+        if (longest.length < strSplit[i].length)
+            longest = strSplit[i];
+    }
+    return longest;
+}
+console.log(longestWord('TypeScript has more function'));
