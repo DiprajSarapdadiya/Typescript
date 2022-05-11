@@ -3,14 +3,8 @@ var products: (
       name: string;
       stock: number;
       original: number;
-      discount?: undefined;
-    }
-  | {
-      name: string;
-      stock: number;
-      original: number;
-      discount: number;
-    }
+      discount?: number;
+  }
 )[];
 products = [
   { name: "Mobile", stock: 3, original: 4000 },

@@ -56,7 +56,6 @@ var Product = /** @class */ (function () {
         },
         enumerable: false,
         configurable: true
-        
     });
     Product.prototype.increaseStock = function (quantity) {
         this.stock += quantity;
