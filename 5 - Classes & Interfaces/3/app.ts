@@ -1,3 +1,13 @@
+/*
+Chapter: 5 (Class and Interfaces)
+Exercise 3
+Problem Statement: Create one interface named Student contains id, name, 
+college, age, gender properties. gender is a optional property.
+then after create one array of Student type. and write a logic that create 
+one object that contains data about number of students in particular college.
+*/
+
+
 interface Student {
   id: number;
   name: string;
