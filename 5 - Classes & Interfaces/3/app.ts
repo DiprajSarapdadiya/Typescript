@@ -40,34 +40,34 @@ let students: Student[] =[
           college: 'DARSHAN',
           age: 20
   },
+  {
+         id: 5,
+         name: 'test',
+         college: 'IIT',
+         age: 21
+  },
+  {
+    id: 6,
+    name: 'raj',
+    college: 'NIT',
+    age: 21
+  }
 ];
 
-var Result:{college: string; noOfStudents: number }[] =[
-  {
-    college: 'GEC',
-    noOfStudents: 0
-  },
+var Result:{college: string; noOfStudents: number }[] =[];
 
-  {
-    college: 'DARSHAN',
-    noOfStudents: 0
-  },
-
-  {
-    college: 'VVP',
-    noOfStudents: 0
-  },
-
-] 
-
-function fun1(value:Student, index:number, students: Student[]){
-  if (value.college === 'GEC') {
-    Result[0].noOfStudents ++;
-  }else if (value.college === 'DARSHAN') {
-    Result[1].noOfStudents ++;
-  } else if (value.college === 'VVP') {
-    Result[2].noOfStudents ++;
+const fun1 = (value:Student, index:number, students: Student[])=>{
+  let r1 = Result.find((obj :{college: string; noOfStudents: number })=>obj.college === value.college)
+  if(r1){
+      r1.noOfStudents ++; 
+  }else {
+    Result.push({
+      college: `${value.college}`,
+      noOfStudents: 1,
+    })
   }
 }
-students.map(fun1);
+
+students.forEach(fun1);
+// students.map(fun1);
 console.log(Result);

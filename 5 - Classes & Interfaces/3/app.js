@@ -1,3 +1,11 @@
+/*
+Chapter: 5 (Class and Interfaces)
+Exercise 3
+Problem Statement: Create one interface named Student contains id, name,
+college, age, gender properties. gender is a optional property.
+then after create one array of Student type. and write a logic that create
+one object that contains data about number of students in particular college.
+*/
 var students = [
     {
         id: 1,
@@ -23,31 +31,32 @@ var students = [
         college: 'DARSHAN',
         age: 20
     },
+    {
+        id: 5,
+        name: 'test',
+        college: 'IIT',
+        age: 21
+    },
+    {
+        id: 6,
+        name: 'raj',
+        college: 'NIT',
+        age: 21
+    }
 ];
-var Result = [
-    {
-        college: 'GEC',
-        noOfStudents: 0
-    },
-    {
-        college: 'DARSHAN',
-        noOfStudents: 0
-    },
-    {
-        college: 'VVP',
-        noOfStudents: 0
-    },
-];
-function fun1(value, index, students) {
-    if (value.college === 'GEC') {
-        Result[0].noOfStudents++;
+var Result = [];
+var fun1 = function (value, index, students) {
+    var r1 = Result.find(function (obj) { return obj.college === value.college; });
+    if (r1) {
+        r1.noOfStudents++;
     }
-    else if (value.college === 'DARSHAN') {
-        Result[1].noOfStudents++;
+    else {
+        Result.push({
+            college: "".concat(value.college),
+            noOfStudents: 1
+        });
     }
-    else if (value.college === 'VVP') {
-        Result[2].noOfStudents++;
-    }
-}
-students.map(fun1);
+};
+students.forEach(fun1);
+// students.map(fun1);
 console.log(Result);
