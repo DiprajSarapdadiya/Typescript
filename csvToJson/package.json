@@ -1,0 +1,20 @@
+{
+  "name": "csvtojson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10",
+    "fs": "^0.0.1-security",
+    "live-server": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.33"
+  }
+}
