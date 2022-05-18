@@ -1,1 +1,38 @@
-[{"name":"Smith","dob":"01/05/1996","mail":"smith@gmail.com","designation":"developer","salary":"50000","age":"26","gender":"male"},{"name":"roger","dob":"05/05/1998","mail":"roger@gmail.com","designation":"developer","salary":"45000","age":"","gender":"male"},{"name":"scott","dob":"08/06/2000","mail":"scott@gmail.com","designation":"jr. developer","salary":"30000","age":"","gender":"male"},{"name":"mark","dob":"04/09/1986","mail":"mark@gmail.com","designation":"sr. developer","salary":"80000","age":"32","gender":"male"}]
+[
+  {
+    "name": "Smith",
+    "dob": "01/05/1996",
+    "mail": "smith@gmail.com",
+    "designation": "developer",
+    "salary": "50000",
+    "age": "26",
+    "gender": "male"
+  },
+  {
+    "name": "roger",
+    "dob": "05/05/1998",
+    "mail": "roger@gmail.com",
+    "designation": "developer",
+    "salary": "45000",
+    "age": "",
+    "gender": "male"
+  },
+  {
+    "name": "scott",
+    "dob": "08/06/2000",
+    "mail": "scott@gmail.com",
+    "designation": "jr. developer",
+    "salary": "30000",
+    "age": "",
+    "gender": "male"
+  },
+  {
+    "name": "mark",
+    "dob": "04/09/1986",
+    "mail": "mark@gmail.com",
+    "designation": "sr. developer",
+    "salary": "80000",
+    "age": "32",
+    "gender": "male"
+  }
+]

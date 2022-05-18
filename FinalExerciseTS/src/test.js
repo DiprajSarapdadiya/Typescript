@@ -5,6 +5,7 @@ var currency1 = [
     { QUARTER: 0.25 },
     { ONE: 1 },
     { TWO: 2 },
+    { THOUSAND: 1000 },
     { FIVE: 5 },
     { TEN: 10 },
     { TWENTY: 20 },
@@ -16,6 +17,13 @@ var change1;
 var resultArray = [];
 var ArrayCounter = -1;
 var currency2 = currency1.sort(function (a, b) { return Object.values(b)[0] - Object.values(a)[0]; });
+var changeNotAvailable = function () {
+    var result = {
+        status: "Exact Change Is Not Available",
+        change: []
+    };
+    return result;
+};
 var noFund = function () {
     var result = {
         status: "INSUFFICIENT_FUNDS",
@@ -32,33 +40,32 @@ var totalDrawerAmount = function (drawer) {
     return total;
 };
 var removeNote = function (drawer, firstKey, firstValue) {
-    // console.log(change1);
-    // console.log(drawer[count][1]);
-    // console.log(drawer[count][1]);
-    if (firstValue < change1) {
+    if (firstValue <= change1) {
         var resultCounter = 0;
         var result = [];
-        do {
-            change1 = Math.round((change1 + Number.EPSILON) * 100) / 100;
-            if (change1 >= firstValue) {
-                if (drawer[count][1] != 0) {
-                    change1 = change1 - firstValue;
-                    drawer[count][1] = drawer[count][1] - firstValue;
-                    resultCounter++;
+        if (drawer.find(function (obj) { return obj[0] === firstKey; }) != undefined) {
+            do {
+                change1 = Math.round((change1 + Number.EPSILON) * 100) / 100;
+                if (change1 >= firstValue) {
+                    if (drawer[count][1] != 0) {
+                        change1 = change1 - firstValue;
+                        drawer[count][1] = drawer[count][1] - firstValue;
+                        resultCounter++;
+                    }
                 }
+                else
+                    break;
+            } while (drawer[count][1] != 0);
+            if (resultCounter != 0) {
+                result = [firstKey, firstValue * resultCounter];
+                resultArray.push(result);
             }
-            else
-                break;
-        } while (drawer[count][1] != 0);
-        if (resultCounter != 0) {
-            result = [firstKey, firstValue * resultCounter];
-            resultArray.push(result);
         }
     }
     if (count > 0)
         count--;
     else
-        count = drawer.length - 1;
+        return null;
 };
 var changeCalculate = function (drawer) {
     for (var _i = 0, currency2_1 = currency2; _i < currency2_1.length; _i++) {
@@ -112,7 +119,7 @@ var giveMeSomeChange = function (val1, val2, drawer) {
         if (changeValidator(change))
             console.log(printResult(totalAmount));
         else
-            console.log(noFund());
+            console.log(changeNotAvailable());
     }
 };
 // //Example
@@ -128,29 +135,32 @@ var giveMeSomeChange = function (val1, val2, drawer) {
 //   ["ONE HUNDRED", 100],
 // ]);
 // Test Case 1
-giveMeSomeChange(2.26, 100, [
-    ["PENNY", 1.01],
+giveMeSomeChange(2.36, 100, [
+    // ["PENNY", 1.01],
     ["NICKEL", 2.05],
     ["DIME", 3.1],
     ["QUARTER", 4.25],
     ["ONE", 90],
-    ["TWO", 5],
+    ["TWO", 10],
     ["FIVE", 55],
     ["TEN", 20],
     ["TWENTY", 60],
     ["ONE HUNDRED", 100],
+    ["THOUSAND", 2000],
 ]);
-// //Test Case 2
+//Test Case 2
 // giveMeSomeChange(19.5, 20, [
-//   ["PENNY", 0.01],
+//   ["PENNY", 0.5],
 //   ["NICKEL", 0],
 //   ["DIME", 0],
 //   ["QUARTER", 0],
 //   ["ONE", 0],
+//   ["TWO", 0],
 //   ["FIVE", 0],
 //   ["TEN", 0],
 //   ["TWENTY", 0],
 //   ["ONE HUNDRED", 0],
+//   ["thousand", 0],
 // ]);
 // //Test case 3
 // giveMeSomeChange(19.5, 20, [

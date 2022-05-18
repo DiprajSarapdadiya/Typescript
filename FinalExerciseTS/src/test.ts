@@ -4,6 +4,8 @@ let currency1: { [key: string]: number }[] = [
   { DIME: 0.1 },
   { QUARTER: 0.25 },
   { ONE: 1 },
+  { TWO: 2 },
+  { THOUSAND: 1000 },
   { FIVE: 5 },
   { TEN: 10 },
   { TWENTY: 20 },
@@ -11,7 +13,7 @@ let currency1: { [key: string]: number }[] = [
 ];
 
 type resultDisplay = {
-  status: "OPEN" | "CLOSE" | "INSUFFICIENT_FUNDS";
+  status: "OPEN" | "CLOSE" | "INSUFFICIENT_FUNDS" | "Exact Change Is Not Available";
   change: any[];
 };
 
@@ -24,6 +26,15 @@ let ArrayCounter: number = -1;
 let currency2 = currency1.sort(
   (a, b): number => Object.values(b)[0] - Object.values(a)[0]
 );
+
+const changeNotAvailable = () => {
+  const result: resultDisplay = {
+    status: "Exact Change Is Not Available",
+    change: []
+  }
+  return result;
+  
+}
 
 const noFund = () => {
   const result: resultDisplay = {
@@ -43,27 +54,36 @@ const totalDrawerAmount = (drawer: any[]): number => {
 };
 
 const removeNote = (drawer: any[], firstKey: string, firstValue: number) => {
-  if (firstValue < change1) {
+  if (firstValue <= change1) {
     let resultCounter = 0;
     let result: any[] = [];
-    do {
-      change1 = Math.round((change1 + Number.EPSILON) * 100) / 100;
-      if (change1 >= firstValue) {
-        if (drawer[count][1] != 0) {
-          change1 = change1 - firstValue;
-          drawer[count][1] = drawer[count][1] - firstValue;
-          resultCounter++;
-        }
-      } else break;
-    } while (drawer[count][1] != 0);
-    if (resultCounter != 0) {
-      result = [firstKey, firstValue * resultCounter];
-      resultArray.push(result);
-    }
+
+    if (drawer.find((obj) => obj[0] === firstKey) != undefined) {
+     
+      
+      do {
+        change1 = Math.round((change1 + Number.EPSILON) * 100) / 100;
+        if (change1 >= firstValue) {
+          if (drawer[count][1] != 0) {
+            change1 = change1 - firstValue;
+            drawer[count][1] = drawer[count][1] - firstValue;
+            resultCounter++;
+          }
+        } else break;
+      } while (drawer[count][1] != 0);
+
+
+      if (resultCounter != 0) {
+        result = [firstKey, firstValue * resultCounter];
+        resultArray.push(result);
+      }
+    } 
+    
+    
   }
 
   if (count > 0) count--;
-  else count = drawer.length - 1;
+  else return null;
 };
 
 const changeCalculate = (drawer: any[]) => {
@@ -76,6 +96,7 @@ const changeCalculate = (drawer: any[]) => {
 
 const changeValidator = (change: number) => {
   let calculatedChange = totalDrawerAmount(resultArray);
+
   calculatedChange =
     Math.round((calculatedChange + Number.EPSILON) * 100) / 100;
 
@@ -107,6 +128,7 @@ const giveMeSomeChange = (val1: number, val2: number, drawer: any[]) => {
   if (change < 0) change = change * -1;
 
   totalAmount = totalDrawerAmount(drawer);
+
   change1 = change;
   count = drawer.length - 1;
 
@@ -118,72 +140,75 @@ const giveMeSomeChange = (val1: number, val2: number, drawer: any[]) => {
   } else if (change < totalAmount) {
     changeCalculate(drawer);
     if (changeValidator(change)) console.log(printResult(totalAmount));
-    else console.log(noFund());
+    else console.log(changeNotAvailable());
   }
 };
 
-//Example
-giveMeSomeChange(19.5, 20, [
-  ["PENNY", 1.01],
-  ["NICKEL", 2.05],
-  ["DIME", 3.1],
-  ["QUARTER", 4.25],
-  ["ONE", 90],
-  ["FIVE", 55],
-  ["TEN", 20],
-  ["TWENTY", 60],
-  ["ONE HUNDRED", 100],
-]);
+// //Example
+// giveMeSomeChange(19.5, 20, [
+//   ["PENNY", 1.01],
+//   ["NICKEL", 2.05],
+//   ["DIME", 3.1],
+//   ["QUARTER", 4.25],
+//   ["ONE", 90],
+//   ["FIVE", 55],
+//   ["TEN", 20],
+//   ["TWENTY", 60],
+//   ["ONE HUNDRED", 100],
+// ]);
 
 // Test Case 1
-giveMeSomeChange(2.26, 100, [
-  ["PENNY", 1.01],
+giveMeSomeChange(2.36, 100, [
+  // ["PENNY", 1.01],
   ["NICKEL", 2.05],
   ["DIME", 3.1],
   ["QUARTER", 4.25],
   ["ONE", 90],
-
+  ["TWO", 10],
   ["FIVE", 55],
   ["TEN", 20],
   ["TWENTY", 60],
   ["ONE HUNDRED", 100],
+  ["THOUSAND", 2000],
 ]);
 
 //Test Case 2
-giveMeSomeChange(19.5, 20, [
-  ["PENNY", 0.01],
-  ["NICKEL", 0],
-  ["DIME", 0],
-  ["QUARTER", 0],
-  ["ONE", 0],
-  ["FIVE", 0],
-  ["TEN", 0],
-  ["TWENTY", 0],
-  ["ONE HUNDRED", 0],
-]);
+// giveMeSomeChange(19.5, 20, [
+//   ["PENNY", 0.5],
+//   ["NICKEL", 0],
+//   ["DIME", 0],
+//   ["QUARTER", 0],
+//   ["ONE", 0],
+//   ["TWO", 0],
+//   ["FIVE", 0],
+//   ["TEN", 0],
+//   ["TWENTY", 0],
+//   ["ONE HUNDRED", 0],
+//   ["thousand", 0],
+// ]);
 
-//Test case 3
-giveMeSomeChange(19.5, 20, [
-  ["PENNY", 0.01],
-  ["NICKEL", 0],
-  ["DIME", 0],
-  ["QUARTER", 0],
-  ["ONE", 1],
-  ["FIVE", 0],
-  ["TEN", 0],
-  ["TWENTY", 0],
-  ["ONE HUNDRED", 0],
-]);
+// //Test case 3
+// giveMeSomeChange(19.5, 20, [
+//   ["PENNY", 0.01],
+//   ["NICKEL", 0],
+//   ["DIME", 0],
+//   ["QUARTER", 0],
+//   ["ONE", 1],
+//   ["FIVE", 0],
+//   ["TEN", 0],
+//   ["TWENTY", 0],
+//   ["ONE HUNDRED", 0],
+// ]);
 
-// Test case 4
-giveMeSomeChange(19.5, 20, [
-  ["PENNY", 0.5],
-  ["NICKEL", 0],
-  ["DIME", 0],
-  ["QUARTER", 0],
-  ["ONE", 0],
-  ["FIVE", 0],
-  ["TEN", 0],
-  ["TWENTY", 0],
-  ["ONE HUNDRED", 0],
-]);
+// // Test case 4
+// giveMeSomeChange(19.5, 20, [
+//   ["PENNY", 0.5],
+//   ["NICKEL", 0],
+//   ["DIME", 0],
+//   ["QUARTER", 0],
+//   ["ONE", 0],
+//   ["FIVE", 0],
+//   ["TEN", 0],
+//   ["TWENTY", 0],
+//   ["ONE HUNDRED", 0],
+// ]);
