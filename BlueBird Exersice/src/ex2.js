@@ -1,6 +1,3 @@
-"use strict";
-// npm i csvtojson
-// npm i -d fs
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,29 +34,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var userFile = '../employee.csv';
-var csv = require('csvtojson');
-// csv().fromFile(userFile).then(jsonObj => {
-//   console.log(jsonObj);
-//   // const write = fs.createWriteStream('../raw files');
-//   fs.writeFile('abc1.json',JSON. stringify(jsonObj), e=>{
-//     if(e)
-//     console.log(e);
-//     else 
-//     console.log('seceded');
-//   })
-// })
-var getJson = function (userFile) { return __awaiter(void 0, void 0, void 0, function () {
-    var res;
+var _this = this;
+var fun1 = function () { return Promise.resolve("pass"); };
+var fun2 = function () { return Promise.reject("fail"); };
+var fun3 = function () { return Promise.reject("fail"); };
+var fun4 = function () { return Promise.resolve("pass"); };
+var fun5 = function () { return Promise.resolve("pass"); };
+var fun6 = function () { return Promise.resolve("pass"); };
+var fun7 = function () { return Promise.resolve("pass"); };
+var fun8 = function () { return Promise.resolve("pass"); };
+var fun9 = function () { return Promise.resolve("pass"); };
+var fun10 = function () { return Promise.resolve("pass"); };
+var main = function () { return __awaiter(_this, void 0, void 0, function () {
+    var finalValue;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, csv().fromFile(userFile)];
+            case 0: return [4 /*yield*/, Promise.allSettled([
+                    fun1(),
+                    fun2(),
+                    fun3(),
+                    fun4(),
+                    fun5(),
+                    fun6(),
+                    fun7(),
+                    fun8(),
+                    fun9(),
+                    fun10(),
+                ])];
             case 1:
-                res = _a.sent();
-                console.log(res);
+                finalValue = _a.sent();
+                finalValue.forEach(function (value) {
+                    console.log(value.status);
+                });
                 return [2 /*return*/];
         }
     });
 }); };
-getJson(userFile);
+main();

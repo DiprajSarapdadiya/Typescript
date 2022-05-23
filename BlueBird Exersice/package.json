@@ -1,0 +1,19 @@
+{
+  "name": "bluebird-exersice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/bluebird-global": "^3.5.13",
+    "@types/node": "^17.0.34"
+  },
+  "dependencies": {
+    "async": "^3.2.3",
+    "bluebird": "^3.7.2"
+  }
+}

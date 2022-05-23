@@ -1,6 +1,6 @@
-"use strict";
-// npm i csvtojson
-// npm i -d fs
+// const {Promise} = require("bluebird");
+// import { request } from "http";
+// import async from "../../../../.cache/typescript/4.4/node_modules/@types/async";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -37,29 +37,25 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var userFile = '../employee.csv';
-var csv = require('csvtojson');
-// csv().fromFile(userFile).then(jsonObj => {
-//   console.log(jsonObj);
-//   // const write = fs.createWriteStream('../raw files');
-//   fs.writeFile('abc1.json',JSON. stringify(jsonObj), e=>{
-//     if(e)
-//     console.log(e);
-//     else 
-//     console.log('seceded');
-//   })
-// })
-var getJson = function (userFile) { return __awaiter(void 0, void 0, void 0, function () {
-    var res;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, csv().fromFile(userFile)];
-            case 1:
-                res = _a.sent();
-                console.log(res);
-                return [2 /*return*/];
-        }
+var _this = this;
+var count = 0;
+var reqArray = [];
+do {
+    var myPromise = function () { return new Promise(function (resolve, reject) {
+        resolve(count);
+    }); };
+    count++;
+    reqArray.push(myPromise());
+} while (count < 50);
+var request = function (value) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            console.log(value);
+        }, 2000);
     });
-}); };
-getJson(userFile);
+};
+Promise.map(reqArray, function (value) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/, request(value)];
+    });
+}); }, { concurrency: 10 });

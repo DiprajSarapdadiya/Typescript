@@ -77,7 +77,9 @@ const removeNote = (drawer: any[], firstKey: string, firstValue: number) => {
         result = [firstKey, firstValue * resultCounter];
         resultArray.push(result);
       }
-    } 
+    } else {
+      count--
+    }
     
     
   }
@@ -157,20 +159,20 @@ const giveMeSomeChange = (val1: number, val2: number, drawer: any[]) => {
 //   ["ONE HUNDRED", 100],
 // ]);
 
-// Test Case 1
-giveMeSomeChange(2.36, 100, [
-  // ["PENNY", 1.01],
-  ["NICKEL", 2.05],
-  ["DIME", 3.1],
-  ["QUARTER", 4.25],
-  ["ONE", 90],
-  ["TWO", 10],
-  ["FIVE", 55],
-  ["TEN", 20],
-  ["TWENTY", 60],
-  ["ONE HUNDRED", 100],
-  ["THOUSAND", 2000],
-]);
+// // Test Case 1
+// giveMeSomeChange(2.36, 100, [
+//   // ["PENNY", 1.01],
+//   ["NICKEL", 2.05],
+//   ["DIME", 3.1],
+//   ["QUARTER", 4.25],
+//   ["ONE", 90],
+
+//   ["FIVE", 55],
+//   ["TEN", 20],
+//   ["TWENTY", 60],
+//   ["ONE HUNDRED", 100],
+//   ["THOUSAND", 2000],
+// ]);
 
 //Test Case 2
 // giveMeSomeChange(19.5, 20, [
@@ -212,3 +214,11 @@ giveMeSomeChange(2.36, 100, [
 //   ["TWENTY", 0],
 //   ["ONE HUNDRED", 0],
 // ]);
+
+
+giveMeSomeChange(100, 200, [
+
+  
+  ["HUNDRED", 100],
+  ["THOUSAND", 0],
+]);
